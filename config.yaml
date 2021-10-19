@@ -13,9 +13,9 @@ params:
   blog: {}
   contact:
     address:
-      - city: City, ST 00000
-        country: Country
-        street: Street
+      - city: London, NW1 4SA
+        country: United Kingdom
+        street: London Business School
         title: Address
     buttonClear: Clear
     buttonSend: Send message
@@ -23,9 +23,6 @@ params:
       - email: kmahendra.mfa2022@london.edu
         title: Email
     enable: yes
-    phone:
-      - phone: (000) 000-0000 x1234
-        title: Phone
   custom_css: []
   custom_js: []
   description: Your description
@@ -40,7 +37,7 @@ params:
       - alt: HTML5 UP
         text: 'Design: '
         url: https://www.html5up.net
-    # social:
+    social:
     #   - icon: fa-twitter
     #     label: Twitter
     #     url: https://www.twitter.com
@@ -50,12 +47,12 @@ params:
     #   - icon: fa-instagram
     #     label: Instagram
     #     url: https://www.instagram.com
-    #   - icon: fa-github
+      - icon: fa-github
         label: GitHub
-        url: https://www.github.com
+        url: https://github.com/keshavmahendra
       - icon: fa-linkedin
         label: LinkedIn
-        url: https://www.linkedin.com
+        url: https://www.linkedin.com/in/kmahendra224/
   image: ''
   name: Keshav Mahendra
   navigation:
