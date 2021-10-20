@@ -7,8 +7,7 @@ disqusShortname: ''
 params:
   banner:
     buttonText: Get Started
-    subtitle: |-
-      I make tasty pasta bakes.
+    subtitle: Welcome to my portfolio site.
     title: Hi, my name is Keshav
   blog: {}
   contact:
@@ -23,6 +22,9 @@ params:
       - email: kmahendra.mfa2022@london.edu
         title: Email
     enable: yes
+    phone:
+      - phone: 020 7000 7000
+        title: Phone
   custom_css: []
   custom_js: []
   description: Your description
@@ -31,7 +33,7 @@ params:
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Company Name
+    copyright: Keshav Mahendra | London Business School
     enable: yes
     quicklinks:
       - alt: HTML5 UP
@@ -77,14 +79,14 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: pic01.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Aliquam
+      - image: me.jpg
+        subtitle: ... and how I got here
+        title: About me
         url: blogs/aliquam
       - image: pic02.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Tempus
-        url: blogs/tempus
+        subtitle: utilising YRBSS data
+        title: An analysis of the health of our youth
+        url: blogs/yrbss
       - image: pic03.jpg
         subtitle: Lorem Etiam Nullam
         title: Magna
@@ -101,14 +103,3 @@ params:
         subtitle: Feugiat Amet Tempus
         title: Etiam
         url: blogs/ipsum
-  two:
-    buttonText: Get Started
-    enable: yes
-    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
-      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
-      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
-      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
-      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
-      amet pharetra et feugiat tempus."
-    title: Massa libero
-    url: blogs
