@@ -62,19 +62,16 @@ The date variables are given as characters and need to be formatted as dates
 
 ```{r fixing_date}
 #using `lubridate` to fix dates, as they are given as characters.
-approval_polllist$modeldate<-mdy(approval_polllist$modeldate)
-approval_polllist$startdate<-mdy(approval_polllist$startdate)
-approval_polllist$enddate<-mdy(approval_polllist$enddate)
-approval_polllist$createddate <-mdy(approval_polllist$createddate )
-approval_polllist$timestamp   <-as_datetime(approval_polllist$createddate )
-glimpse(approval_polllist) #checking that it was fixed
+approval_polllist$modeldate<-lubridate::mdy(approval_polllist$modeldate)
+approval_polllist$startdate<-lubridate::mdy(approval_polllist$startdate)
+approval_polllist$enddate<-lubridate::mdy(approval_polllist$enddate)
+approval_polllist$createddate <-lubridate::mdy(approval_polllist$createddate )
+approval_polllist$timestamp   <-lubridate::as_datetime(approval_polllist$createddate )
+dplyr::glimpse(approval_polllist) #checking that it was fixed
 ```
 
 # Creating a plot
-We are creating a plot showing Joe Biden's net approval margin over time alond with its 95% confidence interval. The plot we are trying to recreate:
-```{r trump_margins, echo=FALSE, out.width="100%", cache=TRUE}
-knitr::include_graphics(here::here("static/img/portfolio/biden_approval_margin.jpg"), error = FALSE)
-```
+We are creating a plot showing Joe Biden's net approval margin over time alond with its 95% confidence interval. The plot we are trying to recreate is the the one at the top of the webpage.
 
 Now we shall use `ggplot` and its nuances on our dataset to replicate the above graph.
 

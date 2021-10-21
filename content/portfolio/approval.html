@@ -5,7 +5,7 @@ categories:
 date: "2017-10-31T22:26:09-05:00"
 description:
 draft: false
-image: knitr::include_graphics("/img/portfolio/biden_approval_margin.jpg",error =FALSE)
+image: biden_approval_margin.jpg
 keywords: ""
 slug: approval
 title: Joe Biden's Approval Rating over time
@@ -46,12 +46,12 @@ glimpse(approval_polllist) #taking a look at the data</code></pre>
 ## $ timestamp           &lt;chr&gt; &quot;20:39:09 20 Oct 2021&quot;, &quot;20:39:09 20 Oct 2021&quot;, &quot;2…</code></pre>
 <p>The date variables are given as characters and need to be formatted as dates</p>
 <pre class="r"><code>#using `lubridate` to fix dates, as they are given as characters.
-approval_polllist$modeldate&lt;-mdy(approval_polllist$modeldate)
-approval_polllist$startdate&lt;-mdy(approval_polllist$startdate)
-approval_polllist$enddate&lt;-mdy(approval_polllist$enddate)
-approval_polllist$createddate &lt;-mdy(approval_polllist$createddate )
-approval_polllist$timestamp   &lt;-as_datetime(approval_polllist$createddate )
-glimpse(approval_polllist) #checking that it was fixed</code></pre>
+approval_polllist$modeldate&lt;-lubridate::mdy(approval_polllist$modeldate)
+approval_polllist$startdate&lt;-lubridate::mdy(approval_polllist$startdate)
+approval_polllist$enddate&lt;-lubridate::mdy(approval_polllist$enddate)
+approval_polllist$createddate &lt;-lubridate::mdy(approval_polllist$createddate )
+approval_polllist$timestamp   &lt;-lubridate::as_datetime(approval_polllist$createddate )
+dplyr::glimpse(approval_polllist) #checking that it was fixed</code></pre>
 <pre><code>## Rows: 1,947
 ## Columns: 22
 ## $ president           &lt;chr&gt; &quot;Joseph R. Biden Jr.&quot;, &quot;Joseph R. Biden Jr.&quot;, &quot;Jos…
@@ -79,8 +79,7 @@ glimpse(approval_polllist) #checking that it was fixed</code></pre>
 </div>
 <div id="creating-a-plot" class="section level1">
 <h1>Creating a plot</h1>
-<p>We are creating a plot showing Joe Biden’s net approval margin over time alond with its 95% confidence interval. The plot we are trying to recreate:
-<img src="/Users/Keshav/Desktop/my_website/static/img/portfolio/biden_approval_margin.jpg" width="100%" style="display: block; margin: auto;" /></p>
+<p>We are creating a plot showing Joe Biden’s net approval margin over time alond with its 95% confidence interval. The plot we are trying to recreate is the the one at the top of the webpage.</p>
 <p>Now we shall use <code>ggplot</code> and its nuances on our dataset to replicate the above graph.</p>
 <pre class="r"><code>approval_polllist_ci&lt;-approval_polllist %&gt;%
   mutate(week_of_the_year=week(enddate),net_approval_rate=approve-disapprove)%&gt;% #calculating the net approval rating
