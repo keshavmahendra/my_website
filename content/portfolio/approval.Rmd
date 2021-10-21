@@ -8,7 +8,7 @@ draft: false
 image: biden_approval_margin.jpg
 keywords: ""
 slug: approval
-title: An analysis of the health of our youth
+title: Joe Biden's Approval Rating over time
 ---
 
 ```{r setup, include=FALSE}
@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 ```{r load-libraries, include=FALSE, cache = TRUE}
 
-library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(tidyverse)
 library(mosaic)
 library(ggthemes)
 library(lubridate)
@@ -47,10 +47,12 @@ library(tidyquant)
 
 ```
 
+
+
 # Downloading and cleaning data
 
 ```{r load_poll, cache=TRUE}
-# Import approval polls data directly off fivethirtyeight website
+# Importing approval polls data directly off fivethirtyeight website
 approval_polllist <- read_csv('https://projects.fivethirtyeight.com/biden-approval-data/approval_polllist.csv') 
 
 glimpse(approval_polllist) #taking a look at the data

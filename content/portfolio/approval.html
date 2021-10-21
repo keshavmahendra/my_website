@@ -5,10 +5,10 @@ categories:
 date: "2017-10-31T22:26:09-05:00"
 description:
 draft: false
-image: pic03.jpg
+image: knitr::include_graphics("/img/portfolio/biden_approval_margin.jpg",error =FALSE)
 keywords: ""
 slug: approval
-title: An analysis of the health of our youth
+title: Joe Biden's Approval Rating over time
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
@@ -16,7 +16,7 @@ title: An analysis of the health of our youth
 
 <div id="downloading-and-cleaning-data" class="section level1">
 <h1>Downloading and cleaning data</h1>
-<pre class="r"><code># Import approval polls data directly off fivethirtyeight website
+<pre class="r"><code># Importing approval polls data directly off fivethirtyeight website
 approval_polllist &lt;- read_csv(&#39;https://projects.fivethirtyeight.com/biden-approval-data/approval_polllist.csv&#39;) 
 
 glimpse(approval_polllist) #taking a look at the data</code></pre>
@@ -80,7 +80,8 @@ glimpse(approval_polllist) #checking that it was fixed</code></pre>
 <div id="creating-a-plot" class="section level1">
 <h1>Creating a plot</h1>
 <p>We are creating a plot showing Joe Biden’s net approval margin over time alond with its 95% confidence interval. The plot we are trying to recreate:
-<img src="/Users/Keshav/Desktop/my_website/images/biden_approval_margin.png" width="100%" style="display: block; margin: auto;" /></p>
+<img src="/Users/Keshav/Desktop/my_website/static/img/portfolio/biden_approval_margin.jpg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Now we shall use <code>ggplot</code> and its nuances on our dataset to replicate the above graph.</p>
 <pre class="r"><code>approval_polllist_ci&lt;-approval_polllist %&gt;%
   mutate(week_of_the_year=week(enddate),net_approval_rate=approve-disapprove)%&gt;% #calculating the net approval rating
   filter(subgroup==&quot;All polls&quot;) %&gt;% #filtering for all polls
