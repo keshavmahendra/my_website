@@ -1,0 +1,22 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T22:26:09-05:00"
+description:
+draft: false
+image: me.jpg
+keywords: ""
+slug: me
+title: About me
+---
+
+
+Hi Kostis, I'm Keshav Mahendra from *Glasgow, Scotland*. I was born and brought up in the city, but I have spent time living in *Lucknow, India* and *Toronto, Canada*, moving with my father's work.
+
+I did my undergrad in maths at Lancaster University, where I specialised in pure maths, namely abstract algebra and [number theory](https://en.wikipedia.org/wiki/Number_theory). I had a great time at the uni with a very diverse crowd.
+
+Extracurricularly, I have unsurprisingly participated in a lot of maths competitions- primarily during secondary school where I won a few awards in them. I also enjoy playing badminton and going to the gym. I am a big fan of the Cleveland Browns in the NFL and Maclaren in Formula 1 (recently spending £100 on Maclaren merchendise, as a man who doesn't typically spend money on clothes).
+
+I've done a few internships in finance with one this past summer with a boutique in Liverpool Street called Peel Hunt LLP. That was an  enjoyable experience and I am thoroughly considering going back.
+

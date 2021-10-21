@@ -2,12 +2,12 @@
 categories:
 - ""
 - ""
-date: "10-09-2021"
+date: "2017-10-31T22:26:09-05:00"
 description:
 draft: false
-image: pic10.jpg
+image: pic02.jpg
 keywords: ""
-slug: yrbss
+slug: yrbss1
 title: An analysis of the health of our youth
 ---
 
@@ -283,6 +283,3 @@ null_dist %>%
 ```
 
 With a p-value equal to 0.002<0.05, we reject the null hypothesis.
-
-
-

@@ -1,0 +1,125 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T22:26:09-05:00"
+description:
+draft: false
+image: biden_approval_margin.jpg
+keywords: ""
+slug: approval
+title: An analysis of the health of our youth
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center")
+
+```
+
+```{r load-libraries, include=FALSE, cache = TRUE}
+
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+library(infer)
+library(rvest)
+library(fivethirtyeight)
+library(tidyquant)
+
+```
+
+# Downloading and cleaning data
+
+```{r load_poll, cache=TRUE}
+# Import approval polls data directly off fivethirtyeight website
+approval_polllist <- read_csv('https://projects.fivethirtyeight.com/biden-approval-data/approval_polllist.csv') 
+
+glimpse(approval_polllist) #taking a look at the data
+```
+
+The date variables are given as characters and need to be formatted as dates
+
+```{r fixing_date}
+#using `lubridate` to fix dates, as they are given as characters.
+approval_polllist$modeldate<-mdy(approval_polllist$modeldate)
+approval_polllist$startdate<-mdy(approval_polllist$startdate)
+approval_polllist$enddate<-mdy(approval_polllist$enddate)
+approval_polllist$createddate <-mdy(approval_polllist$createddate )
+approval_polllist$timestamp   <-as_datetime(approval_polllist$createddate )
+glimpse(approval_polllist) #checking that it was fixed
+```
+
+# Creating a plot
+We are creating a plot showing Joe Biden's net approval margin over time alond with its 95% confidence interval. The plot we are trying to recreate:
+```{r trump_margins, echo=FALSE, out.width="100%", cache=TRUE}
+knitr::include_graphics(here::here("static/img/portfolio/biden_approval_margin.jpg"), error = FALSE)
+```
+
+Now we shall use `ggplot` and its nuances on our dataset to replicate the above graph.
+
+```{r poll_plot, cache=TRUE}
+  
+approval_polllist_ci<-approval_polllist %>%
+  mutate(week_of_the_year=week(enddate),net_approval_rate=approve-disapprove)%>% #calculating the net approval rating
+  filter(subgroup=="All polls") %>% #filtering for all polls
+  group_by(week_of_the_year)%>% #grouping by week
+  summarize(average_net_approval_rate=mean(net_approval_rate),
+            sd_net_approval_rate=sd(net_approval_rate),
+            count=n(),
+            se_net_approval_rate=sd_net_approval_rate/sqrt(count),
+            t_critical=qt(0.975,count-1),
+             margin_of_error=t_critical*se_net_approval_rate,
+            lower_ci_95=average_net_approval_rate-t_critical*se_net_approval_rate,
+            higher_ci_95=average_net_approval_rate+t_critical*se_net_approval_rate,
+            na.rm=TRUE) %>% #calculating the confidence intervals for each week
+  ggplot(aes(x=week_of_the_year,y=average_net_approval_rate))+ #building the plot
+  geom_point(colour="red3",size=0.2,xlim=40)+ #plotting each data point
+  geom_line(colour="red3",size=0.1)+ #adding a line that links the data points
+  theme_bw()+
+  geom_smooth(se=FALSE,legend.position=NA,colour="blue",size=0.4)+ #adding a trendline
+  geom_ribbon(aes(ymin=lower_ci_95,ymax=higher_ci_95),colour="red3",alpha=0.1,linetype="dashed",size=0.1)+ #colouring the CI
+  geom_hline(aes(yintercept=0),size=0.8,colour="orange")+ #adding a horizontal line on the y=0 axis
+  theme(legend.position = "none", #setting a more easily readable theme
+        legend.background=element_blank(),
+        plot.title=element_text(size=10,face="bold"),
+        axis.ticks=element_blank(),
+        axis.text=element_text(size=5),
+        strip.text=element_text(size=6),
+        axis.title=element_text(size=6,face="bold"),
+        plot.subtitle=element_text(size=8,face="bold"),
+        panel.border = element_blank(),
+        aspect.ratio=1377/2500)+
+  scale_y_continuous(expand = c(0, 1), breaks= seq(-15,10,by=2.5),limits=c(-15,40))+ #setting y-axis boundaries to make the data more readable
+  scale_x_continuous(expand = c(0, 0),breaks= seq(0,40,by=13),limits=c(1,40))+ #setting x-axis boundaries to make the data more readable
+    labs(title="Estimating Approval Margin (Approve - Disapprove) for Joe Biden", 
+       subtitle="Weekly Average of All Polls",
+       x="Week of the year", 
+       y="Average Approval Margin (approve-disapprove)")+
+  annotate("text",x=20,y=40,label="2021",size=2)
+
+approval_polllist_ci #printing to view the plot
+
+```
+
+# Comparing Confidence Intervals
+
+The confidence intervals for `week 3` is very wide compared to the other weeks, whereas the confidence interval for `week 25` is narrower. The reason the confidence interval for week 3 is wide is because it is the first week we have data for and our data starts in the middle of the week. Week 3 in 2021 was from 18-24. January. The 'enddate' variable from the data set that we use to plot the weeks only starts from January 21st. Therefore, we believe the number of data points in week 3 to be much lower than in other weeks, leading to a wider confidence interval. 
